@@ -1,0 +1,58 @@
+version: "3"
+volumes:
+  api_node_modules:
+
+services:
+  # db:
+  #   image: postgres:latest
+  #   container_name: code_server-postgres
+  #   # restart: always
+  #   # platform: 'linux/amd64'
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     POSTGRES_USER: "postgres"
+  #     POSTGRES_PASSWORD: "password"
+  #     PGDATA: /data/postgres
+  #   volumes:
+  #     - ./docker/postgres:/data/postgres
+  #     - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  # mongo:
+  #   image: mongo
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: mongo
+  #     MONGO_INITDB_ROOT_PASSWORD: password
+
+  # api:
+  #   build:
+  #     context: ./api
+  #     dockerfile: Dockerfile.dev
+  #     # args: # docker compose 로 build 할때 제대로 동작 안함 / docker-compose 로 build 시에는 정상 동작
+  #     #   TARGET_ENV: "local"
+  #   environment:
+  #     ENVIRONMENT: "local"
+  #   container_name: fastapi_boiler_api
+  #   ports:
+  #     - "3000:80"
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - ./api/app:/code/app
+  #   command:
+  #     ["sh", "-c", 'uvicorn app.main:app --host "0.0.0.0" --port 80 --reload']
+
+  code-server:
+    image: codercom/code-server:latest
+    container_name: code_server
+    volumes:
+      - ./docker/code-server/config/.config:/home/coder/.config
+      - ./docker/code-server/project:/home/coder/project
+    # user: "$$(id -u):$$(id -g)"
+    user: "501:20"
+    environment:
+      DOCKER_USER: $USER
+    ports:
+      - "8080:8080"
