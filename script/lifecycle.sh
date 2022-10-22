@@ -12,5 +12,3 @@ sudo sh -c 'echo "* * * * * root sudo /home/ubuntu/cron.sh >dev/null 2>&1" >> /e
 
 # cron 이 동작 안할때 system log 확인
 # tail -f /var/log/syslog
-
-# http://13.209.19.148:8080/?folder=/home/ubuntu
