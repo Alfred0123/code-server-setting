@@ -18,7 +18,7 @@ uptime=$(echo $(uptime | echo $(awk '{ print $3 }')))
 echo "uptime: $uptime"
 
 # 300000 / 1000 * 60 * 5
-if [ "$status" = "expired" ] && [ $diffSeconds -gt 300000 ] && [ $uptime -gt 10 ]; then
+if [ "$status" = "expired" ] && [ $diffSeconds -gt 600000 ] && [ $uptime -gt 10 ]; then
     sudo shutdown -h now
 fi
 
