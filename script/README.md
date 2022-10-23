@@ -1,4 +1,7 @@
-# TODO.
+# TODO. code-server setting
+
+- wireguard / vpn client 세팅
+- k3s setting
 
 - aws terraform setting
   - 고정 ip + instance setting
@@ -9,4 +12,8 @@
   - 참고
     - https://kasterra.github.io/code-server-with-vps/
 
-- workspace 설정해서 한번에 열기
+- vscode workspace 설정해서 한번에 열기
+
+# TODO. setting 이후
+
+- prometheus 세팅
