@@ -17,3 +17,4 @@
 # TODO. setting 이후
 
 - prometheus 세팅
+- vault 세팅
