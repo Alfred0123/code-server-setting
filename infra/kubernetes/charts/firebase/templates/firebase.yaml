@@ -1,0 +1,87 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: firebase
+spec:
+  # type: ClusterIP
+  type: LoadBalancer
+  selector:
+    app: firebase
+  ports:
+    - name: ui
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
+    - name: storage
+      protocol: TCP
+      port: 9199
+      targetPort: 9199
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+# kind: Deployment
+metadata:
+  name: firebase
+spec:
+  serviceName: firebase # statefulset 사용시에 필요
+  selector:
+    matchLabels:
+      app: firebase
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: firebase
+    spec:
+      nodeSelector:
+        # cloud.google.com/gke-nodepool: main
+      volumes:
+        - name: firebase-config
+          configMap:
+            name: firebase-config
+            items:
+              - key: firebase.json
+                path: firebase.json
+              - key: storage.rules
+                path: storage.rules
+      containers:
+        - name: firebase
+          image: "{{.Values.image.repository}}:{{.Values.image.tag}}"
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 4000
+            - containerPort: 9199
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "1024Mi"
+          env:
+          {{- range $key, $value := .Values.envVars }}
+            - name: {{ $key }}
+              value: {{ $value | squote }}
+          {{- end }}
+          volumeMounts:
+            - name: firebase-config
+              mountPath: /mnt
+          command:
+            - "sh"
+            - "-c"
+            - |
+              #!/bin/sh
+              cp /mnt/firebase.json /home/node/firebase.json
+              cp /mnt/storage.rules /home/node/storage.rules
+              # cat /home/node/firebase.json
+              firebase emulators:start -P {{ .Values.projectId }}
+  volumeClaimTemplates:
+    - metadata:
+        name: firebase-volume
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi

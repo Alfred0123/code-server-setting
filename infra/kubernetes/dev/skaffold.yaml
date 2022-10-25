@@ -1,0 +1,90 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+metadata:
+  name: skaffold
+.YamlAnchors:
+  - &api
+    name: api
+    chartPath: ../charts/api
+    valuesFiles:
+      - ./commonValues.yaml
+      - ./api/values.yaml
+    artifactOverrides:
+      image: keke0123/nest-boiler-dev
+    imageStrategy:
+      helm: {}
+  - &postgres
+    name: postgres
+    chartPath: ../charts/postgres
+    valuesFiles:
+      - ./commonValues.yaml
+  - &storage
+    name: storage
+    chartPath: ../charts/storage
+    valuesFiles:
+      - ./commonValues.yaml
+  - &firebase
+    name: firebase
+    chartPath: ../charts/firebase
+    valuesFiles:
+      - ./commonValues.yaml
+      - ./firebase/values.yaml
+    artifactOverrides:
+      image: keke0123/firebase
+    imageStrategy:
+      helm: {}
+profiles:
+  - name: api
+    build:
+      tagPolicy:
+        #   envTemplate:
+        #     template: latest
+        gitCommit:
+          ignoreChanges: false
+      artifacts:
+        - image: keke0123/nest-boiler-dev
+          context: "../../../api"
+          docker:
+            dockerfile: "Dockerfile.dev"
+          #   cacheFrom:
+          #     - keke0123/nest-boiler-dev
+          #     # - keke0123/nest-boiler-dev:latest
+          #   buildArgs:
+          #     TARGET_ENV: local
+          sync:
+            manual:
+              - src: "src/**/*.ts"
+                dest: src
+                strip: "src/"
+    deploy:
+      helm:
+        releases:
+          - *api
+  - name: postgres
+    deploy:
+      helm:
+        releases:
+          - *postgres
+  - name: storage
+    deploy:
+      helm:
+        releases:
+          - *storage
+  - name: firebase
+    build:
+      tagPolicy:
+        # envTemplate:
+        #   template: latest
+        gitCommit:
+          ignoreChanges: false
+      artifacts:
+        - image: keke0123/firebase
+          context: "./firebase"
+          docker:
+            dockerfile: "Dockerfile"
+            # buildArgs:
+            #   NODE_ENV: development
+    deploy:
+      helm:
+        releases:
+          - *firebase

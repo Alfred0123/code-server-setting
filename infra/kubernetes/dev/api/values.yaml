@@ -1,0 +1,27 @@
+# image: keke0123/nest-boiler-dev
+
+minReplicas: 1
+maxReplicas: 1
+
+envVars:
+  NODE_ENV: dev
+#
+# ormconfig: |
+#   {{- with secret "postgres/creds/typed_client" -}}
+#   default:
+#     migrationsRun: false
+#     logging: false
+#     synchronize: false
+#     type: postgres
+#     host: nest_boiler_postgres
+#     port: 5432
+#     username: postgres
+#     password: password
+#     database: common
+#     autoLoadEntities: true
+#     migrations: ['migration/*{.js}']
+#     entities: ['infrastructure/**/*.entity{.js}']
+#   # tenant:
+#   {{- end -}}
+# 위에껀 이런식으로 사용
+# {{ toYaml .Values.ormconfig | indent 8 }}

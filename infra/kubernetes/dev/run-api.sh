@@ -1,0 +1,1 @@
+skaffold dev -p api --cleanup=false

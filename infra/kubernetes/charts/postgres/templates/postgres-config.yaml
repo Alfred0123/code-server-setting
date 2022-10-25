@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  labels:
+data:
+  init.sql: |
+    CREATE DATABASE testdb;
+    CREATE DATABASE common;
+    CREATE DATABASE tenant;

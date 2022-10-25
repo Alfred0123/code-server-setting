@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+  labels:
+data:
+  database.config.yaml: |
+    default:
+      migrationsRun: false
+      logging: false
+      synchronize: false
+      type: postgres
+      host: postgres.default.svc.cluster.local
+      port: 5432
+      username: postgres
+      password: password
+      database: common
+      autoLoadEntities: true
+      migrations: ['migration/*.ts']
+      entities: ['dist/src/infrastructure/**/*.entity.js']
+    # tenant:
