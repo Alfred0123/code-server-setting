@@ -26,7 +26,8 @@ Endpoint = 34.x.x.x:51820
 # ListenPort 의 port 는 방화벽에서 열어줘야된다.
 # aws dns 주소는 127.0.0.53
 [interface]
-ListenPort = 51820
+# ListenPort = 51820 # default 가 51820 인데, k3s 와 겹치는듯 해서 수정
+ListenPort = 51830
 DNS = 127.0.0.53
 
 #* 참고
