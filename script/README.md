@@ -1,6 +1,5 @@
 # TODO. code-server setting
 
-- wireguard / vpn client 세팅
 - k3s setting
   - ip 제한 세팅
 - aws terraform setting
