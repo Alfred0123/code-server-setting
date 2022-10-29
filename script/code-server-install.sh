@@ -14,6 +14,7 @@ code-server --install-extension naumovs.color-highlight
 code-server --install-extension usernamehw.errorlens
 code-server --install-extension mhutchie.git-graph
 code-server --install-extension github.vscode-pull-request-github
+code-server --install-extension knisterpeter.vscode-github
 code-server --install-extension eamodio.gitlens
 code-server --install-extension orta.vscode-jest
 code-server --install-extension firsttris.vscode-jest-runner
