@@ -3,7 +3,7 @@ locals {
   region = get_env("REGION", "ap-northeast-2")
   env = get_env("ENV", "dev")
   service = get_env("SERVICE", "code-server-setting")
-  # sample = get_env("SAMPLE", "sample")
+  domain = get_env("DOMAIN", "nanafa.net")
 }
 
 remote_state {
@@ -36,6 +36,6 @@ inputs = {
   region = "${local.region}"
   env = "${local.env}"
   service = "${local.service}"
-  # sample = "${local.sample}"
+  domain = "${local.domain}"
 }
 
