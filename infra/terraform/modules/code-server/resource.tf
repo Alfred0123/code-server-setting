@@ -1,45 +1,105 @@
-data "aws_route53_zone" "this" {
-  name = var.domain
+# data "aws_route53_zone" "this" {
+#   name = var.domain
+# }
+
+module "security_group" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = "${var.name}"
+  description = "${var.name} default security group"
+  vpc_id      = var.vpc_id
+
+  ingress_cidr_blocks      = ["0.0.0.0/0"]
+  # common rule
+  ingress_rules            = ["ssh-tcp"]
+  # custom rule
+  ingress_with_cidr_blocks = [
+    {
+      from_port   = 8080
+      to_port     = 8080
+      protocol    = "tcp"
+      description = "code-server"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 51820
+      to_port     = 51820
+      protocol    = "udp"
+      description = "wireguard"
+      cidr_blocks = "0.0.0.0/0"
+    },
+  ]
+  egress_rules            = ["all-all"]
 }
 
-# module "security_group" {
-#   source = "./modules/terraform-aws-security-group"
-#   # local path 의 경우에는 version 을 명시하지 않는듯 하다
-#   # version = "~> 3.0"
+module "ec2_instance" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 3.0"
 
-#   name = "example"
-#   description = "Security group for example usage with EC2 instance"
-#   vpc_id = data.aws_vpc.default.id
+  name = "${var.name}"
 
-#   ingress_cidr_blocks = ["0.0.0.0/0"]
-#   ingress_rules = ["http-80-tcp", "all-icmp", "ssh-tcp", "openvpn-https-tcp"]
-#   egress_rules = ["all-all"]
-# }
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  key_name               = var.key_name
+  monitoring             = false
+  vpc_security_group_ids = ["${module.security_group.security_group_id}"]
+  subnet_id              = var.subnet_id
 
-# module "ec2" {
-#   source = "./modules/terraform-aws-ec2-instance"
+  user_data_base64 = "${data.template_cloudinit_config.this.rendered}"
+  # user_data_replace_on_change = true
 
-#   instance_count = 1
+  # TODO. volume 설정
 
-#   key_name = aws_key_pair.web_admin.key_name
+  tags = {
+    # Terraform   = "true"
+    # Environment = "dev"
+  }
+}
 
-#   name          = "example-t2-unlimited"
-#   ami           = data.aws_ami.ubuntu_linux.id
-#   instance_type = "t2.micro"
-#   cpu_credits   = "unlimited"
-#   subnet_id     = tolist(data.aws_subnet_ids.all.ids)[0]
-#   //  private_ip = "172.31.32.10"
-#   vpc_security_group_ids      = [module.security_group.this_security_group_id]
-#   associate_public_ip_address = true
+data "template_cloudinit_config" "this" {
+  gzip = true
+  base64_encode = true
 
-#   # custom variable
-#   private_key_path = "~/.ssh/web_admin"
-#   provisioner_init = {
-#     source = "./provisioner/init.sh"
-#     destination = "/tmp/init.sh"
-#   }
-#   provisioner_vpnserver = {
-#     source = "./provisioner/vpnserver.sh"
-#     destination = "/tmp/vpnserver.sh"
-#   }
-# }
+  part {
+    content_type = "text/cloud-config" # "text/x-shellscript"
+    # filename = "code-server-config.yaml"
+    # content = "${data.template_file.code_server_config.rendered}"
+
+    #! 주의사항 / path 값을 /home/ubuntu 로 잡으면, 유저가 생기기 전에 ubuntu 폴더가 생기게 됨으로 주의!
+    content = jsonencode({
+      write_files = [
+        {
+          encoding = "b64"
+          # content = filebase64("${data.template_file.code_server_config.rendered}")
+          content = filebase64("${path.module}/config.yaml")
+          # content = data.template_file.code_server_config.rendered
+          owner = "root:root"
+          path = "/tmp/config.yaml"
+          permissions = "0755"
+        }
+      ]
+    })
+  }
+
+  part {
+    content_type = "text/x-shellscript"
+    content = <<EOF
+#!/bin/bash
+/bin/echo "test" > /tmp/test.log
+sudo /bin/echo "sudo" > /tmp/sudo.log
+sudo echo "echo" > /tmp/echo.log
+EOF
+  }
+
+  # part {
+  #   content_type = "text/x-shellscript"
+  #   content = "echo \"test\" > test.log"
+  # }
+}
+
+data "template_file" "code_server_config" {
+  template = file("${path.module}/config.yaml")
+  vars = {
+    # password = var.password
+  }
+}
