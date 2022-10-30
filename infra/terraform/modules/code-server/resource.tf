@@ -1,7 +1,24 @@
-# data "aws_route53_zone" "this" {
-#   name = var.domain
-# }
+//
+// route53
+//
+data "aws_route53_zone" "this" {
+  name = var.domain
+}
+resource "aws_eip" "this" {
+  instance = module.ec2_instance.id
+  vpc      = true
+}
+resource "aws_route53_record" "this" {
+  zone_id = data.aws_route53_zone.this.zone_id
+  name    = "${var.name}.${var.domain}"
+  type    = "A"
+  ttl     = 10
+  records = [aws_eip.this.public_ip]
+}
 
+//
+// security group
+//
 module "security_group" {
   source = "terraform-aws-modules/security-group/aws"
 
