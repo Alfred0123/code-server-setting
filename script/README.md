@@ -5,8 +5,6 @@
 - repository 관련
   - github token 입력해두어서 설정된 repo down 받아지도록 설정?
   - vscode workspace 설정해서 한번에 열기
-- secure
-  - login rate limit 확인
 
 # TODO. infra 고도화
 
