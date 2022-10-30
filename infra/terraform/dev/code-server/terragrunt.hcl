@@ -24,6 +24,7 @@ inputs = {
   # ami = "ami-0e9bfdb247cc8de84" # ubuntu 22.04 / 64비트 x86
   # ami = "ami-02a8e74d508493718" # ubuntu 22.04 / 64비트 Arm
   instance_type = "t3.medium"
+  # instance 사용 안할때 / eip 가격 0.005$/hr / 7.11원
   # instance_type = "t3.medium" # 2vCPU 4gi 0.052$/hr / 73원
   # instance_type = "t3.large" # 2vCPU 8gi 0.104$/hr / 147원
   # instance_type = "t3.xlarge" # 4vCPU 16gi 0.208$/hr / 295원
