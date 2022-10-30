@@ -37,3 +37,6 @@ variable "instance_type" {
 variable "ami" {
   type = string
 }
+variable "volume_size" {
+  type = string
+}

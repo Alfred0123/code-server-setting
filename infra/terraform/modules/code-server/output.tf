@@ -3,6 +3,6 @@ output "security_group" {
 }
 
 # output "test" {
-#   value = data.template_file.code_server_config.rendered
+#   value = data.aws_subnet.this
 # }
 

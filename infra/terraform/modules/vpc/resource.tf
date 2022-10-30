@@ -4,9 +4,9 @@ module "vpc" {
   name = "${var.name}-vpc"
   cidr = "192.168.0.0/16"
 
-  azs             = ["${var.region}a", "${var.region}c"]
+  azs             = ["${var.region}a"]
   # private_subnets = ["192.168.1.0/24", "192.168.2.0/24"]
-  public_subnets  = ["192.168.11.0/24", "192.168.12.0/24"]
+  public_subnets  = ["192.168.11.0/24"]
 
   enable_dns_hostnames = true
   enable_dns_support   = true

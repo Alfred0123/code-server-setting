@@ -32,6 +32,7 @@ module "security_group" {
   egress_rules            = ["all-all"]
 }
 
+# 참고 / https://github.com/terraform-aws-modules/terraform-aws-ec2-instance/blob/master/examples/complete/main.tf
 module "ec2_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
@@ -48,7 +49,12 @@ module "ec2_instance" {
   user_data_base64 = "${data.template_cloudinit_config.this.rendered}"
   # user_data_replace_on_change = true
 
-  # TODO. volume 설정
+  root_block_device = [
+    {
+      volume_size = var.volume_size
+      volume_type = "gp2"
+    }
+  ]
 
   tags = {
     # Terraform   = "true"
@@ -103,3 +109,20 @@ data "template_file" "code_server_config" {
     # password = var.password
   }
 }
+
+//
+// EBS volume
+//
+# data "aws_subnet" "this" {
+#   id = var.subnet_id
+# }
+# resource "aws_volume_attachment" "this" {
+#   device_name = "/dev/sdh"
+#   volume_id   = aws_ebs_volume.this.id
+#   instance_id = module.ec2_instance.id
+# }
+# resource "aws_ebs_volume" "this" {
+#   availability_zone = data.aws_subnet.this.availability_zone
+#   size              = var.volume_size
+#   # tags = {}
+# }

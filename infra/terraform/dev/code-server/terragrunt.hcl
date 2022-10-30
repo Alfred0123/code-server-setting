@@ -31,4 +31,5 @@ inputs = {
   # instance_type = "c5a.xlarge" # 4vCPU 8gi 0.172$/hr / 244원
   # instance_type = "c5a.2xlarge" # 8vCPU 16gi 0.344$/hr / 489원
   # instance_type = "c5a.4xlarge" # 16vCPU 32gi 0.688$/hr / 978원
+  volume_size = 10
 }
