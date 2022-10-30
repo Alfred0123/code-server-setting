@@ -1,5 +1,6 @@
 # TODO. code-server setting
 
+- aws http gateway 달아놓기
 - aws terraform setting
   - k3s setting
 - repository 관련
@@ -8,7 +9,7 @@
 
 # TODO. infra 고도화
 
-- 앞단에 api gateway 달기
+- 앞단에 api gateway 세팅
   - ip 제한 세팅
   - device 제한 세팅? / 이건 가능할지 한번 확인먼저
     - device 추가시 2차 인증? / 이건 너무 나갔나?
