@@ -1,11 +1,5 @@
 # TODO. code-server setting
 
-- certbot 이랑 nginx 이용해서 https 세팅
-  - domain setting
-  - nginx proxy
-  - code-server request proxy setting
-  - 참고
-    - https://kasterra.github.io/code-server-with-vps/
 - aws terraform setting
   - k3s setting
 - repository 관련

@@ -28,7 +28,7 @@ module "security_group" {
 
   ingress_cidr_blocks      = ["0.0.0.0/0"]
   # common rule
-  ingress_rules            = ["ssh-tcp"]
+  ingress_rules            = ["ssh-tcp", "https-443-tcp", "http-80-tcp"]
   # custom rule
   ingress_with_cidr_blocks = [
     {
