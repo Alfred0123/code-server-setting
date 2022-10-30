@@ -8,15 +8,22 @@
   - github token 입력해두어서 설정된 repo down 받아지도록 설정?
   - vscode workspace 설정해서 한번에 열기
 - certbot 이랑 nginx 이용해서 https 세팅
-  - 우선 도메인 사야됨
+  - domain setting
+  - nginx proxy
+  - code-server request proxy setting
   - 참고
     - https://kasterra.github.io/code-server-with-vps/
+- secure
+  - login rate limit 확인
 
 # TODO. infra 고도화
 
 - 앞단에 api gateway 달기
   - ip 제한 세팅
+  - device 제한 세팅? / 이건 가능할지 한번 확인먼저
+    - device 추가시 2차 인증? / 이건 너무 나갔나?
   - 기능 추가
+    - 비밀번호 변경 / lambda
     - wake on lan setting / lambda
     - 사용 안하면, 자동으로 꺼지는 시간 조정 함수 / lambda
 
