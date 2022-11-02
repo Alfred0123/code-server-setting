@@ -1,8 +1,14 @@
 # TODO. code-server setting
 
+- traefik 으로 수정
+  - traefik hub
+  - traefik mesh
+  - traefik proxy
+- codespace 처럼 remote access 가능할지 확인!!!
+  - 이때 heart beat 은 어떻게 되는지?
 - aws http gateway 달아놓기
 - aws terraform setting
-  - k3s setting
+  - minikube setting
 - repository 관련
   - github token 입력해두어서 설정된 repo down 받아지도록 설정?
   - vscode workspace 설정해서 한번에 열기
@@ -14,11 +20,12 @@
   - device 제한 세팅? / 이건 가능할지 한번 확인먼저
     - device 추가시 2차 인증? / 이건 너무 나갔나?
   - 기능 추가
+    - start, stop instance 함수
     - 비밀번호 변경 / lambda
     - wake on lan setting / lambda
     - 사용 안하면, 자동으로 꺼지는 시간 조정 함수 / lambda
 
-# TODO. k3s setting 이후
+# TODO. minikube setting 이후
 
 - 우선순위 높음
   - cert manager 세팅
