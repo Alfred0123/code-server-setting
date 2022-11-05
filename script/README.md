@@ -24,6 +24,10 @@
 
 # TODO. infra 고도화
 
+- cron 종료방법 추가 세팅
+  - ssh 연결 있는경우에 종료 안되도록 수정
+  - lambda curl 요청으로 세팅된 시간이 있는 경우에는 세팅된 시간까지 종료 안되도록 설정
+  - uptime 이 3일이 넘은 경우에는 무조건 종료 시키도록 수정
 - admin api gateway 세팅
   - 메모
     - aws api gateway 는 web socket 과 http 를 같이 받지 못함으로, lambda 같은 serverless 자원에서만 사용하는게 맞다고 생각함

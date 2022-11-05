@@ -22,5 +22,13 @@ if [ "$status" = "expired" ] && [ $diffSeconds -gt 600000 ] && [ $uptime -gt 10 
     sudo shutdown -h now
 fi
 
+# TODO.
+# ssh 로 연결한 사용자 있을때도 종료 안되도록 세팅?
+# ssh 접근으로 접속한 사람들 숫자 확인 방법
+# ss | grep ssh | wc -l
 
+# TODO.
+# curl 요청으로 세팅된 시간이 있는 경우에는 세팅된 시간까지 종료 안되도록 설정
 
+# TODO.
+# uptime 이 3일이 넘은 경우에는 무조건 reboot 한번 하도록 설정

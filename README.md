@@ -14,3 +14,7 @@ vi ~/.config/code-server/config.yaml
 
 sudo systemctl restart code-server@$USER
 ```
+
+# vscode 에서 remote 연결 방법
+
+좌측 하단에 초록색 부분 클릭, ssh 연결 설정, 끝
