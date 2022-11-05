@@ -3,7 +3,7 @@ curl -fsSL https://code-server.dev/install.sh | sh
 
 # TODO. config.yaml 파일 copy
 # print code-server config
-cat ~/.config/code-server/config.yaml
+vi ~/.config/code-server/config.yaml
 
 # code server systemctl 등록 및 시작 / 서버 재 실행시에도 다시 실행된다.
 sudo systemctl enable --now code-server@$USER
