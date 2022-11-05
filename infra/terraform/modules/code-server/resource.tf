@@ -82,7 +82,7 @@ module "ec2_instance" {
   }
 }
 
-resource "null_resource" "code-server" {
+resource "null_resource" "init" {
   connection {
     user        = "ubuntu"
     type        = "ssh"
@@ -93,30 +93,61 @@ resource "null_resource" "code-server" {
 
   provisioner "remote-exec" {
     inline = [
-      "mkdir /home/ubuntu/init",
-      "mkdir -p /home/ubuntu/.config/code-server"
+      "mkdir /home/ubuntu/init"
     ]
   }
 
-  provisioner "file" {
-    source = "./init/config.yaml"
-    destination = "/home/ubuntu/init/config.yaml"
+  # code-server
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir -p /home/ubuntu/.config/code-server"
+    ]
   }
-
+  provisioner "file" {
+    source = "./init/code-server-config.yaml"
+    destination = "/home/ubuntu/init/code-server-config.yaml"
+  }
   provisioner "file" {
     source = "./init/code-server-install.sh"
     destination = "/home/ubuntu/init/code-server-install.sh"
   }
-  
-  provisioner "remote-exec" {
-    inline = [
-      "echo $USER",
-      "sh /home/ubuntu/init/code-server-install.sh"
-    ]
+
+  # docker 
+  provisioner "file" {
+    source = "./init/docker-install.sh"
+    destination = "/home/ubuntu/init/docker-install.sh"
   }
 
   depends_on = [
     module.ec2_instance, aws_eip.this
+  ]
+}
+
+resource "null_resource" "install" {
+  connection {
+    user        = "ubuntu"
+    type        = "ssh"
+    private_key = "${file("./keys/code-server.pem")}"
+    timeout     = "2m"
+    host = aws_eip.this.public_ip
+  }
+  
+  # code-server
+  provisioner "remote-exec" {
+    inline = [
+      "sh /home/ubuntu/init/code-server-install.sh"
+    ]
+  }
+
+  # docker
+  provisioner "remote-exec" {
+    inline = [
+      "sh /home/ubuntu/init/docker-install.sh"
+    ]
+  }
+
+  depends_on = [
+    null_resource.init
   ]
 }
 
