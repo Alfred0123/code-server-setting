@@ -1,0 +1,110 @@
+# ## STATIC CONFIGURATION
+# log:
+#   level: INFO
+
+# api:
+#   insecure: true
+#   dashboard: true
+
+# entryPoints:
+#   web:
+#     address: ":80"
+
+# providers:
+#   docker:
+#     watch: true
+#     endpoint: "unix:///var/run/docker.sock"
+#   file:
+#     filename: "traefik.yml"
+
+## DYNAMIC CONFIGURATION
+# http:
+#   routers:
+#     api:
+#       entryPoints:
+#         - web
+#         # - websecure
+#       # rule: Host('food.dogdog.cf')&&PathPrefix('/toy')
+#       service: "reverse-proxy"
+#       # tls: {}
+
+#   services:
+#     reverse-proxy:
+#       loadBalancer:
+#         servers:
+#           # - url: "http://54.180.85.222:8080"
+#           - url: "http://127.0.0.1:8080"
+
+# http:
+#   routers:
+#     main:
+#       service: dev
+
+#   services:
+#     dev:
+#       loadBalancer:
+#         servers:
+#         - url: https://google.com
+
+# defaultEntryPoints: ["http"]
+# log:
+#   level: "INFO"
+# entryPoints:
+#   web:
+#     address: 80
+
+# providers:
+#   docker:
+#     useBindPortIP: true
+#     endpoint: "unix:///var/run/docker.sock"
+#     exposedByDefault: false
+
+# entryPoints:
+#   web:
+#     address: ":80"
+
+# http:
+#   routers:
+#     router1:
+#       entryPoints:
+#         - "web"
+#       # rule: "Host(`example.com`)"
+#       rule: "ClientIP(`0.0.0.0`)"
+#       service: "reverse-proxy"
+
+#   services:
+#     reverse-proxy:
+#       loadBalancer:
+#         servers:
+#           - url: "http://host.docker.internal:8080"
+#           # - url: "http://54.180.85.222:8080"
+#           # - url: "http://host.docker.internal:8080"
+
+http:
+  # middlewares:
+  #   stage-prefix:
+  #     replacePathRegex:
+  #       regex: "^/test/(.*)"
+  #       replacement: "/$1"
+  #   stage-redirectregex:
+  #     redirectRegex:
+  #       regex: "^(http|https)://([^/]+)/test"
+  #       replacement: "(http|https)://${1}/test/"
+  routers:
+    router1:
+      # middlewares:
+      #   - "stage-redirectregex"
+      #   # - "stage-prefix"
+      entryPoints:
+        - "web"
+      # rule: "Host(`example.com`)"
+      rule: "ClientIP(`0.0.0.0/0`)"
+      service: "reverse-proxy"
+
+  services:
+    reverse-proxy:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8080"
+          # - url: "http://54.180.85.222:8080"
+          # - url: "http://host.docker.internal:8080"

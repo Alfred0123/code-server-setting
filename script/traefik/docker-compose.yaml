@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  traefik:
+    image: "traefik:v2.9"
+    container_name: "traefik"
+    # hostname: "traefik"
+    command:
+      - "--entryPoints.traefik.address=:9090"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entryPoints.web.address=:80"
+      # - "--entryPoints.websecure.address=:443"
+      - "--providers.file=true"
+      - "--providers.file.watch=true"
+      - "--providers.file.filename=etc/traefik/rules.yml"
+      # - "--certificatesresolvers.re.acme.email=*****@naver.com"
+      # - "--certificatesresolvers.re.acme.storage=./acme.json"
+      # - "--certificatesresolvers.re.acme.httpchallenge.entryPoint=websecure"
+    # ports:
+    #   - "80:80"
+    #   - "9090:9090"
+    network_mode: "host"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./rules.yml:/etc/traefik/rules.yml:ro"
+      # - "./rules.yml:/etc/traefik/rules.yml:ro"
+  # website:
+  #   image: containous/whoami
+  #   labels:
+  #     - traefik.enable=true
+  #     - traefik.http.routers.website.rule=Host('food.dogdog.cf')
+  #     - traefik.http.routers.website.tls=true
+  #     - traefik.http.routers.website.tls.certresolver=re
+  #     - traefik.http.routers.website.entrypoints=websecure
+  #     - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+  #     - traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)
+  #     - traefik.http.routers.redirs.entrypoints=web
+  #     - traefik.http.routers.redirs.middlewares=redirect-to-https
