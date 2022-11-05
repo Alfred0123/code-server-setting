@@ -2,6 +2,14 @@
 
 # TODO. code-server setting
 
+- terraform setting
+  - code-server / complete
+  - docker
+  - minikube
+  - wire-guard
+  - traefik
+  - github
+  - cron
 - traefik 으로 수정
   - traefik hub
   - traefik mesh
@@ -31,6 +39,8 @@
       - 비밀번호 변경 / lambda
       - wake on lan setting / lambda
       - 자동 종료 온오프? / lambda
+- packer 사용해서 code server 및 기타 소프트웨어 깔아놓은것 image 화 시켜서 올려놓자
+  - packer 를 사용해서 ami 를 만들어 놓는다면, script 실행중 오류로 infra 구성이 실패하는 부분을 해결할 수 있을듯 하다.
 
 # TODO. minikube setting 이후
 

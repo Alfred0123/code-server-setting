@@ -49,6 +49,9 @@ module "security_group" {
   egress_rules            = ["all-all"]
 }
 
+//
+// ec2
+//
 # 참고 / https://github.com/terraform-aws-modules/terraform-aws-ec2-instance/blob/master/examples/complete/main.tf
 module "ec2_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
@@ -63,7 +66,7 @@ module "ec2_instance" {
   vpc_security_group_ids = ["${module.security_group.security_group_id}"]
   subnet_id              = var.subnet_id
 
-  user_data_base64 = "${data.template_cloudinit_config.this.rendered}"
+  # user_data_base64 = "${data.template_cloudinit_config.this.rendered}"
   # user_data_replace_on_change = true
 
   root_block_device = [
@@ -79,56 +82,46 @@ module "ec2_instance" {
   }
 }
 
-data "template_cloudinit_config" "this" {
-  gzip = true
-  base64_encode = true
-
-  part {
-    content_type = "text/cloud-config" # "text/x-shellscript"
-    # filename = "code-server-config.yaml"
-    # content = "${data.template_file.code_server_config.rendered}"
-
-    #! 주의사항 / path 값을 /home/ubuntu 로 잡으면, 유저가 생기기 전에 ubuntu 폴더가 생기게 됨으로 주의!
-    content = jsonencode({
-      write_files = [
-        {
-          encoding = "b64"
-          # content = filebase64("${data.template_file.code_server_config.rendered}")
-          content = filebase64("${path.module}/config.yaml")
-          # content = data.template_file.code_server_config.rendered
-          owner = "root:root"
-          path = "/tmp/config.yaml"
-          permissions = "0755"
-        }
-      ]
-    })
+resource "null_resource" "code-server" {
+  connection {
+    user        = "ubuntu"
+    type        = "ssh"
+    private_key = "${file("./keys/code-server.pem")}"
+    timeout     = "2m"
+    host = aws_eip.this.public_ip
   }
 
-  part {
-    content_type = "text/x-shellscript"
-    content = <<EOF
-#!/bin/bash
-/bin/echo "test" > /tmp/test.log
-sudo /bin/echo "sudo" > /tmp/sudo.log
-sudo echo "echo" > /tmp/echo.log
-EOF
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir /home/ubuntu/init",
+      "mkdir -p /home/ubuntu/.config/code-server"
+    ]
   }
 
-  # part {
-  #   content_type = "text/x-shellscript"
-  #   content = "echo \"test\" > test.log"
-  # }
-}
-
-data "template_file" "code_server_config" {
-  template = file("${path.module}/config.yaml")
-  vars = {
-    # password = var.password
+  provisioner "file" {
+    source = "./init/config.yaml"
+    destination = "/home/ubuntu/init/config.yaml"
   }
+
+  provisioner "file" {
+    source = "./init/code-server-install.sh"
+    destination = "/home/ubuntu/init/code-server-install.sh"
+  }
+  
+  provisioner "remote-exec" {
+    inline = [
+      "echo $USER",
+      "sh /home/ubuntu/init/code-server-install.sh"
+    ]
+  }
+
+  depends_on = [
+    module.ec2_instance, aws_eip.this
+  ]
 }
 
 //
-// EBS volume
+// EBS volume / root volume 외의, 외부 volume 이 필요한 경우
 //
 # data "aws_subnet" "this" {
 #   id = var.subnet_id
