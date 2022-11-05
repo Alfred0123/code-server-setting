@@ -22,6 +22,10 @@ if [ "$status" = "expired" ] && [ $diffSeconds -gt 600000 ] && [ $uptime -gt 10 
     sudo shutdown -h now
 fi
 
+# TODO. uptime 이 10분 이내인 경우, 무조건 종료 안시킴
+
+# TODO. 종료 예약시간이 설정된경우, 종료 예약시간 확인후, 종료시킬지 결정
+
 # TODO.
 # ssh 로 연결한 사용자 있을때도 종료 안되도록 세팅?
 # ssh 접근으로 접속한 사람들 숫자 확인 방법

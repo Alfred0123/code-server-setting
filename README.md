@@ -18,3 +18,7 @@ sudo systemctl restart code-server@$USER
 # vscode 에서 remote 연결 방법
 
 좌측 하단에 초록색 부분 클릭, ssh 연결 설정, 끝
+
+# required setting!!!
+
+- 각각의 keys 폴더에 pem 설정

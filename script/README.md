@@ -4,12 +4,13 @@
 
 - terraform setting
   - code-server / complete
-  - docker
+  - docker / complete
   - minikube
   - wire-guard
   - traefik
   - github
   - cron
+    - 종료시간 관련 세팅 조정할게 좀 여러가지 있을듯함
 - traefik 으로 수정
   - traefik hub
   - traefik mesh
@@ -21,6 +22,31 @@
 - repository 관련
   - github token 입력해두어서 설정된 repo down 받아지도록 설정?
   - vscode workspace 설정해서 한번에 열기
+
+# lambda admin 설계
+
+- infra
+  - api gateway
+  - dynamodb
+  - cognito / 보류
+- domain
+  - [service-name]-admin.[domain]
+- endpoint
+  - GET /service/status
+    - 메모
+      - 서비스 on/off, uptime, ssh 접속자 수, web 접속 상태, 종료 예약시간
+  - POST /service/status
+    - 메모
+      - code-server 에서 호출해서 상태값 넘겨주는 url
+      - uptime 이 종료시간보다 나중인 경우, 종료시간 초기화
+  - GET /service/start
+    - 메모
+      - PUT 이 더 어울리지만, web 에서 접근하기 쉽게
+  - GET /service/shutdown?after_min=1
+    - 메모
+      - PUT 이 더 어울리지만, web 에서 접근하기 쉽게
+      - after_min 값으로 예약 종료 설정, 없는경우 바로 종료
+      - 종료시간 max 값 72시간으로 설정
 
 # TODO. infra 고도화
 
