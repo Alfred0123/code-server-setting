@@ -36,3 +36,5 @@ fi
 
 # TODO.
 # uptime 이 3일이 넘은 경우에는 무조건 reboot 한번 하도록 설정
+# (추가 설정값) max_uptime(3일로 설정하면, cron 에서 uptime 과 비교해서 종료) / admin 에서 제어 가능하도록
+# (추가 설정값) min_uptime(3일로 설정하면, cron 에서 uptime 과 비교해서 종료) / admin 에서 제어 가능하도록

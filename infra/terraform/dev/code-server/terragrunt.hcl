@@ -23,6 +23,8 @@ inputs = {
   ami = "ami-0e9bfdb247cc8de84"
   # ami = "ami-0e9bfdb247cc8de84" # ubuntu 22.04 / 64비트 x86
   # ami = "ami-02a8e74d508493718" # ubuntu 22.04 / 64비트 Arm
+  # ami = "ami-07d16c043aa8e5153" # ubuntu 20.04 / 64비트 x86
+  # ami = "ami-0d4a2b7c3a596df97" # ubuntu 20.04 / 64비트 Arm
   instance_type = "t3.medium"
   # instance 사용 안할때 / eip 가격 0.005$/hr / 7.11원
   # instance_type = "t3.medium" # 2vCPU 4gi 0.052$/hr / 73원

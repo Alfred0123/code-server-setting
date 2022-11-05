@@ -5,10 +5,11 @@
 - terraform setting
   - code-server / complete
   - docker / complete
-  - minikube
-  - wire-guard
+  - minikube / complete
+    - k9s setting / 정상적으로 설치는 안되서, 다음과 같은 오픈소스 이용 / https://github.com/webinstall/webi-installers
   - traefik
   - github
+  - wire-guard
   - cron
     - 종료시간 관련 세팅 조정할게 좀 여러가지 있을듯함
 - traefik 으로 수정
@@ -35,6 +36,8 @@
   - GET /service/status
     - 메모
       - 서비스 on/off, uptime, ssh 접속자 수, web 접속 상태, 종료 예약시간
+      - (추가 설정값) max_uptime(3일로 설정하면, cron 에서 uptime 과 비교해서 종료)
+      - (추가 설정값) min_uptime(3일로 설정하면, cron 에서 uptime 과 비교해서 종료)
   - POST /service/status
     - 메모
       - code-server 에서 호출해서 상태값 넘겨주는 url
@@ -47,6 +50,11 @@
       - PUT 이 더 어울리지만, web 에서 접근하기 쉽게
       - after_min 값으로 예약 종료 설정, 없는경우 바로 종료
       - 종료시간 max 값 72시간으로 설정
+  - 추가 설정값 / 중요도 높진 않음
+    - PUT /service/settings?max_uptime=xxx&min_uptime=xxx
+      - 메모
+        - max_uptime 수정 / default 60 \* 24 / 60 \* 12 보다 더 작게는 설정 불가
+        - max_uptime 수정 / default 10 / 10 보다 더 작게는 설정 불가
 
 # TODO. infra 고도화
 

@@ -118,6 +118,12 @@ resource "null_resource" "init" {
     destination = "/home/ubuntu/init/docker-install.sh"
   }
 
+  # minikube 
+  provisioner "file" {
+    source = "./init/minikube-install.sh"
+    destination = "/home/ubuntu/init/minikube-install.sh"
+  }
+
   depends_on = [
     module.ec2_instance, aws_eip.this
   ]
@@ -143,6 +149,13 @@ resource "null_resource" "install" {
   provisioner "remote-exec" {
     inline = [
       "sh /home/ubuntu/init/docker-install.sh"
+    ]
+  }
+
+  # minikube
+  provisioner "remote-exec" {
+    inline = [
+      "sh /home/ubuntu/init/minikube-install.sh"
     ]
   }
 
