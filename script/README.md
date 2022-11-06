@@ -1,5 +1,9 @@
 # Issue. aws gateway 는 websocket, http 를 단일 url 로 처리할 수 없기 때문에, lambda 사용하는 곳에서만 사용하기로 결정. consul 도 동일한 문제가 있는듯 하다. websocket 과 http 를 하나의 도메인으로 사용하는건 관리상에 문제가 있을듯 하다. 개발 관련해서는 같이 쓰더라도, 배포할때는 꼭 따로 떯어뜨려놓자
 
+# PWA
+
+- PWA 로 사용하면 단축키도 왠만큼 다 시용가능하니 꼭 PWA 로 사용할것 / PWA 로 cmd + 한번 누르고 사용하면 font 도 딱 맞을듯 하다.
+
 # TODO. code-server setting
 
 - terraform setting
@@ -12,8 +16,29 @@
   - aws sdk / complete
   - wire-guard / complete
   - github / complete
+  - vscode user setting
+  - etcd
   - cron
     - 종료시간 관련 세팅 조정할게 좀 여러가지 있을듯함
+    - etcd 사용해서 데이터 관리
+      - etcd 에 상태값 저장하는 cron
+        - uptime 기록 / service uptime
+          - instance_uptime
+        - ssh 접속자 수 / 만약 접속자수가 0 이상이면 현재시간 기록
+          - ssh_user_total
+          - ssh_user_last_connection_time
+        - web 접속 여부 / 만약 active 라면 last 접속 time
+          - web_user_active
+          - web_user_last_connection_time
+        - 종료 예약시간
+          - shutdown_reservation_time
+      - cron 저장된 시간을 바탕으로 로직 만들기
+        - 예외 uptime 이 3분 이내면 무조건 로직 안돌도록 설정
+          - 일단 etcd 에 상태값 저장할 시간이 필요하다.
+- code-server theme setting
+  - 개인 세팅 저장
+  - /home/ubuntu/.local/share/code-server/User/keybindings.json
+  - /home/ubuntu/.local/share/code-server/User/settings.json
 
 # lambda admin 설계
 

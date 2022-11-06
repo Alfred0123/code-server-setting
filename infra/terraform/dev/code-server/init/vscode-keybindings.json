@@ -1,0 +1,20 @@
+[
+  {
+    "key": "alt+space",
+    "command": "editor.action.triggerSuggest",
+    "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+space",
+    "command": "-editor.action.triggerSuggest",
+    "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+cmd+u",
+    "command": "editor.action.transformToUppercase"
+  },
+  {
+    "key": "alt+cmd+l",
+    "command": "editor.action.transformToLowercase"
+  }
+]

@@ -7,7 +7,7 @@ sudo apt-get install jq -y
 chmod +x /home/ubuntu/cron.sh
 
 # MAILTO=""
-# sudo sh -c 'echo "$(echo MAILTO=\"\"; cat /etc/crontab)" > /etc/crontab'
+sudo sh -c 'echo "$(echo MAILTO=\"\"; cat /etc/crontab)" > /etc/crontab'
 sudo sh -c 'echo "* * * * * root sudo /home/ubuntu/cron.sh >dev/null 2>&1" >> /etc/crontab'
 
 # cron 이 동작 안할때 system log 확인
