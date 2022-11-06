@@ -14,6 +14,15 @@ vi /home/ubuntu/.config/code-server/config.yaml
 
 sudo systemctl restart code-server@$USER
 
+# aws key setting
+
+mkdir ~/.aws
+vi ~/.aws/credentials
+
+[user-profile-name]
+aws_access_key_id=xxx
+aws_secret_access_key=xxx
+
 # 참고
 
 - 테스트시에 오래걸리는 init setting / 주석처리되어 있을 수 있으니 확인!
