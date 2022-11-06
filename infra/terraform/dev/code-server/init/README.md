@@ -23,6 +23,13 @@ vi ~/.aws/credentials
 aws_access_key_id=xxx
 aws_secret_access_key=xxx
 
+# github 등록
+
+cmd + shift + p / github 타이핑해서 github publish 누르고 web login
+
+git config --global user.name "xxx"
+git config --global user.email "xxx@example.com"
+
 # 참고
 
 - 테스트시에 오래걸리는 init setting / 주석처리되어 있을 수 있으니 확인!
