@@ -8,10 +8,10 @@
   - minikube / complete
     - k9s setting / 정상적으로 설치는 안되서, 다음과 같은 오픈소스 이용 / https://github.com/webinstall/webi-installers
   - traefik / complete
-  - terraform / terragrunt
-  - aws sdk
+  - terraform, terragrunt / complete
+  - aws sdk / complete
+  - wire-guard / complete
   - github
-  - wire-guard
   - cron
     - 종료시간 관련 세팅 조정할게 좀 여러가지 있을듯함
 - traefik 으로 수정

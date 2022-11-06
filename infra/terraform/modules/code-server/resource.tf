@@ -146,6 +146,12 @@ resource "null_resource" "init" {
     destination = "/home/ubuntu/init/terraform-install.sh"
   }
 
+  # wire-guard
+  provisioner "file" {
+    source = "./init/wire-guard-install.sh"
+    destination = "/home/ubuntu/init/wire-guard-install.sh"
+  }
+
   depends_on = [
     module.ec2_instance, aws_eip.this
   ]
@@ -200,6 +206,13 @@ resource "null_resource" "install" {
   provisioner "remote-exec" {
     inline = [
       "sh /home/ubuntu/init/terraform-install.sh"
+    ]
+  }
+
+  # wire-guard
+  provisioner "remote-exec" {
+    inline = [
+      "sh /home/ubuntu/init/wire-guard-install.sh"
     ]
   }
 
