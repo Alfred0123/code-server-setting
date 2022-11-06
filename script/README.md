@@ -11,21 +11,9 @@
   - terraform, terragrunt / complete
   - aws sdk / complete
   - wire-guard / complete
-  - github
+  - github / complete
   - cron
     - 종료시간 관련 세팅 조정할게 좀 여러가지 있을듯함
-- traefik 으로 수정
-  - traefik hub
-  - traefik mesh
-  - traefik proxy
-- codespace 처럼 remote access 가능할지 확인!!!
-  - 이때 heart beat 은 어떻게 되는지?
-- aws terraform setting
-  - minikube setting
-- repository 관련
-  - github token 입력해두어서 설정된 repo down 받아지도록 설정?
-  - vscode workspace 설정해서 한번에 열기
-- terraform template 사용해서 copy 하는 파일 value 값 통합적으로 사용할 수 있도록 세팅
 
 # lambda admin 설계
 
