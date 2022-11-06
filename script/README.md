@@ -1,4 +1,4 @@
-# Issue. aws gateway 는 socket, http 를 단일 url 로 처리할 수 없기 때문에, lambda 사용하는 곳에서만 사용하기로 결정. consul 도 생각해봤지만, 자체 관리는 당연하고, cloud 를 사용하면 비용 발생을 피하기는 어렵다고 판단.
+# Issue. aws gateway 는 websocket, http 를 단일 url 로 처리할 수 없기 때문에, lambda 사용하는 곳에서만 사용하기로 결정. consul 도 동일한 문제가 있는듯 하다. websocket 과 http 를 하나의 도메인으로 사용하는건 관리상에 문제가 있을듯 하다. 개발 관련해서는 같이 쓰더라도, 배포할때는 꼭 따로 떯어뜨려놓자
 
 # TODO. code-server setting
 
@@ -9,6 +9,7 @@
     - k9s setting / 정상적으로 설치는 안되서, 다음과 같은 오픈소스 이용 / https://github.com/webinstall/webi-installers
   - traefik / complete
   - terraform / terragrunt
+  - aws sdk
   - github
   - wire-guard
   - cron

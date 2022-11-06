@@ -28,6 +28,7 @@ code-server --install-extension jpoissonnier.vscode-styled-components
 code-server --install-extension redhat.vscode-yaml
 code-server --install-extension golang.go
 code-server --install-extension ms-python.python
+code-server --install-extension 4ops.terraform # terragrunt include
 
 sudo systemctl restart code-server@$USER
 
