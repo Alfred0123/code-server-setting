@@ -124,6 +124,16 @@ resource "null_resource" "init" {
     destination = "/home/ubuntu/init/minikube-install.sh"
   }
 
+  # traefik
+  provisioner "file" {
+    content = data.template_file.traefik_config.rendered
+    destination = "/home/ubuntu/init/traefik-config.yaml"
+  }
+  provisioner "file" {
+    source = "./init/docker-compose.yaml"
+    destination = "/home/ubuntu/init/docker-compose.yaml"
+  }
+
   depends_on = [
     module.ec2_instance, aws_eip.this
   ]
@@ -159,9 +169,24 @@ resource "null_resource" "install" {
     ]
   }
 
+  # traefik
+  provisioner "remote-exec" {
+    inline = [
+      "cd init",
+      "docker-compose up -d"
+    ]
+  }
+
   depends_on = [
     null_resource.init
   ]
+}
+
+data "template_file" "traefik_config" {
+  template = file("${path.module}/init/traefik-config.yaml")
+  vars = {
+    DOMAIN = "${var.name}.${var.domain}"
+  }
 }
 
 //

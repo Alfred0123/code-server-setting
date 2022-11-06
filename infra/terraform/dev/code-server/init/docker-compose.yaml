@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  traefik:
+    image: "traefik:v2.9"
+    container_name: "traefik"
+    # hostname: "traefik"
+    command:
+      - "--entryPoints.traefik.address=:9090"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+      # # Global redirect to https
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--providers.file=true"
+      - "--providers.file.watch=true"
+      - "--providers.file.filename=etc/traefik/rules.yml"
+      # - "--log.level=DEBUG"
+      - "--certificatesresolvers.codeServer.acme.tlschallenge=true"
+      # - "--certificatesresolvers.codeServer.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      # - "--certificatesresolvers.codeServer.acme.email=xx@naver.com" # 필수는 아닌듯함
+      - "--certificatesresolvers.codeServer.acme.storage=/letsencrypt/acme.json"
+    network_mode: "host"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik-config.yaml:/etc/traefik/rules.yml:ro"
+      - "./letsencrypt:/letsencrypt"
+    restart: always

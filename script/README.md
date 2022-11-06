@@ -7,7 +7,8 @@
   - docker / complete
   - minikube / complete
     - k9s setting / 정상적으로 설치는 안되서, 다음과 같은 오픈소스 이용 / https://github.com/webinstall/webi-installers
-  - traefik
+  - traefik / complete
+  - terraform / terragrunt
   - github
   - wire-guard
   - cron
@@ -23,6 +24,7 @@
 - repository 관련
   - github token 입력해두어서 설정된 repo down 받아지도록 설정?
   - vscode workspace 설정해서 한번에 열기
+- terraform template 사용해서 copy 하는 파일 value 값 통합적으로 사용할 수 있도록 세팅
 
 # lambda admin 설계
 

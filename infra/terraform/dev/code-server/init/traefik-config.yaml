@@ -1,0 +1,16 @@
+http:
+  routers:
+    code-server:
+      entryPoints:
+        # - "web"
+        - "websecure"
+      # rule: "HOST(`${DOMAIN}`) && ClientIP(`0.0.0.0/0`)"
+      rule: "HOST(`${DOMAIN}`)"
+      service: "reverse-proxy"
+      tls:
+        certresolver: "codeServer"
+  services:
+    reverse-proxy:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8080"
