@@ -20,8 +20,26 @@
   - etcd
   - cron
     - 종료시간 관련 세팅 조정할게 좀 여러가지 있을듯함
-    - etcd 사용해서 데이터 관리
-      - etcd 에 상태값 저장하는 cron
+- code-server theme setting
+  - 개인 세팅 저장
+  - /home/ubuntu/.local/share/code-server/User/keybindings.json
+  - /home/ubuntu/.local/share/code-server/User/settings.json
+
+# lifecycle 관련 예정
+
+- golang 이 힘들면, nodejs 로 바꿀지도
+- golang api / scheduler / etcd
+  - 배포
+    - binary file 로 만들면, terraform 으로 작업할때 전달해서, systemd 로 service 화 해서 사용하면 될듯 하다.
+    - traefik 으로 proxy
+  - 로직
+    - api
+      - service status
+        - lambda 가 service 정보 가져갈때 호출하는 api / 정보는 etcd 에서
+      - service status update
+        - lambda 가 호출해서 종료시간 예약등의 정보를 update 할 때 사용
+    - scheduler
+      - service status update
         - uptime 기록 / service uptime
           - instance_uptime
         - ssh 접속자 수 / 만약 접속자수가 0 이상이면 현재시간 기록
@@ -32,19 +50,15 @@
           - web_user_last_connection_time
         - 종료 예약시간
           - shutdown_reservation_time
-      - cron 저장된 시간을 바탕으로 로직 만들기
+      - system shutdown 결정
         - 예외 uptime 이 3분 이내면 무조건 로직 안돌도록 설정
-          - 일단 etcd 에 상태값 저장할 시간이 필요하다.
-- code-server theme setting
-  - 개인 세팅 저장
-  - /home/ubuntu/.local/share/code-server/User/keybindings.json
-  - /home/ubuntu/.local/share/code-server/User/settings.json
+- lambda / dynamodb(보류)
 
 # lambda admin 설계
 
 - infra
   - api gateway
-  - dynamodb
+  - dynamodb(보류)
   - cognito / 보류
 - domain
   - [service-name]-admin.[domain]
@@ -54,10 +68,7 @@
       - 서비스 on/off, uptime, ssh 접속자 수, web 접속 상태, 종료 예약시간
       - (추가 설정값) max_uptime(3일로 설정하면, cron 에서 uptime 과 비교해서 종료)
       - (추가 설정값) min_uptime(3일로 설정하면, cron 에서 uptime 과 비교해서 종료)
-  - POST /service/status
-    - 메모
-      - code-server 에서 호출해서 상태값 넘겨주는 url
-      - uptime 이 종료시간보다 나중인 경우, 종료시간 초기화
+      - instance api 호출 해서 상태값 가져옴
   - GET /service/start
     - 메모
       - PUT 이 더 어울리지만, web 에서 접근하기 쉽게
@@ -66,6 +77,7 @@
       - PUT 이 더 어울리지만, web 에서 접근하기 쉽게
       - after_min 값으로 예약 종료 설정, 없는경우 바로 종료
       - 종료시간 max 값 72시간으로 설정
+      - instance api 호출
   - 추가 설정값 / 중요도 높진 않음
     - PUT /service/settings?max_uptime=xxx&min_uptime=xxx
       - 메모
