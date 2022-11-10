@@ -1,0 +1,11 @@
+version: "3"
+volumes:
+  api_node_modules:
+
+services:
+  system-api:
+    build:
+      context: Dockerfile.dev
+    container_name: system-api
+    ports:
+      - "8080:8080"
