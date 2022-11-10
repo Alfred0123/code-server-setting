@@ -16,6 +16,7 @@
   - aws sdk / complete
   - wire-guard / complete
   - github / complete
+  - asdf
   - vscode user setting
   - etcd
   - cron
