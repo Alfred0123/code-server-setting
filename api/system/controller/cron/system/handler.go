@@ -1,5 +1,11 @@
 package system
 
-func Hello () {
+import (
+	"log"
+	"time"
+) 
 
+func Uptime() {
+	now := time.Now()
+	log.Println(now)
 }

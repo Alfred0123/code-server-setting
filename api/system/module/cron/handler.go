@@ -1,10 +1,11 @@
 package cron
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/robfig/cron/v3"
+
+	systemHandler "code-server/controller/cron/system"
 )
 
 // go func() {
@@ -14,7 +15,8 @@ import (
 
 func setting() *cron.Cron {
 	c := cron.New()
-	c.AddFunc("* * * * *", func() { fmt.Println("every 1 min")})
+	// c.AddFunc("* * * * *", func() { fmt.Println("every 1 min")})
+	c.AddFunc("* * * * *", systemHandler.Uptime)
 	return c
 }
 
