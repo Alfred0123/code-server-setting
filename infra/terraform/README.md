@@ -21,6 +21,9 @@
   - etcd
   - cron
     - 종료시간 관련 세팅 조정할게 좀 여러가지 있을듯함
+- code server system api 제작
+  - system api
+  - lambda api
 - code-server theme setting
   - 개인 세팅 저장
   - /home/ubuntu/.local/share/code-server/User/keybindings.json
