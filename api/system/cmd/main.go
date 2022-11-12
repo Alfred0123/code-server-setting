@@ -2,11 +2,11 @@ package main
 
 import (
 	"log"
-	"net/http"
 
-	"github.com/gin-gonic/gin"
+	// "github.com/gin-gonic/gin"
 
 	config "code-server/configs"
+	gin "code-server/module/gin"
 )
 
 func init() {
@@ -17,11 +17,5 @@ func init() {
 func main() {	
 	log.Printf("system api start")
 
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run()
+	gin.Run()
 }
