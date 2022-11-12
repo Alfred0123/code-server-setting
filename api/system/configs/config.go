@@ -31,7 +31,7 @@ func SetEnv () {
 
 	viper.SetConfigName(env)
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath(".")
+	viper.AddConfigPath("./env")
 
 	//* system env 값을 기본으로 사용하고 싶을때 다음과 같이 세팅 / 이러면 system env 가 없는경우 yaml 파일 값 세팅
 	viper.BindEnv("SAMPLE")
