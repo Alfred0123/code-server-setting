@@ -5,13 +5,13 @@ tmp_dir = "tmp"
 [build]
   bin = "./tmp/main"
   cmd = "make air_build"
+  full_bin = "SAMPLE=sample ./tmp/main"
   delay = 1000
   exclude_dir = ["assets", "tmp", "vendor", "testdata"]
   exclude_file = []
   exclude_regex = ["_test.go", ".*wire_gen.go"]
   exclude_unchanged = true
   follow_symlink = false
-  full_bin = ""
   include_dir = []
   include_ext = ["go", "tpl", "tmpl", "html"]
   kill_delay = "0s"

@@ -2,7 +2,7 @@ BINARY_NAME=system-api
 
 air_build: air_clean
 air_build:
-	GOARCH=amd64 GOOS=darwin go build -tags=nomsgpack -o ./tmp/main ./main.go
+	GOARCH=amd64 GOOS=darwin go build -tags=nomsgpack -o ./tmp/main ./cmd/main.go
 air_clean:
 	go clean
 	-rm -r ./tmp
@@ -23,7 +23,7 @@ run:
 #* - 를 앞에 붙이면 오류무시
 clean:
 	go clean
-	rm -rf ./build 
+	-rm -rf ./build 
 # rm ${BINARY_NAME}-darwin
 # rm ${BINARY_NAME}-linux
 # rm ${BINARY_NAME}-windows

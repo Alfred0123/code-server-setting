@@ -5,12 +5,13 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	config "code-server/configs"
 )
 
 func init() {
-	// pre run main
-	// config.SetEnv()
-	// log.Printf("ENV: %s", config.RuntimeConf.ENV)
+	config.SetEnv()
+	log.Printf("ENV: %s", config.RuntimeConf.ENV)
 }
 
 func main() {	
