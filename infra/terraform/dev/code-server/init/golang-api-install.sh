@@ -1,3 +1,5 @@
+echo 'export GO_ENV=production' >> /home/ubuntu/.bashrc
+
 mkdir -p /home/ubuntu/init/system
 mkdir -p /home/ubuntu/init/system/env
 
