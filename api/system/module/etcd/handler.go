@@ -15,7 +15,7 @@ func Run() {
 	log.Println("etcd run")
 }
 
-// TODO. connection auto close proxy 가 있다면, 그 방법으로 수정하는게 더 좋을거 같다.
+// TODO. connection auto close proxy 가 있다면, 싱글톤 말고 그때그때 go routine 으로 생성하고 닫고 하는 방식이 더 좋을것 같다.
 type handler struct {
 	client *clientv3.Client
 }
