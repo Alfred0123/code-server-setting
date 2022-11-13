@@ -25,6 +25,7 @@
 - code server system api 제작
   - system api
   - lambda api
+    - system 종료 전에 왜 종료됐는지 람다에 남기는 코드 추가
 - code-server theme setting
   - 개인 세팅 저장
   - /home/ubuntu/.local/share/code-server/User/keybindings.json
