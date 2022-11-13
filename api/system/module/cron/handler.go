@@ -16,8 +16,9 @@ import (
 func setting() *cron.Cron {
 	c := cron.New()
 	// c.AddFunc("* * * * *", func() { fmt.Println("every 1 min")})
-	c.AddFunc("* * * * *", systemHandler.Uptime)
-	c.AddFunc("* * * * *", systemHandler.CodeServerConnection)
+	c.AddFunc("* * * * *", systemHandler.SetUptime)
+	c.AddFunc("* * * * *", systemHandler.SetCodeServerConnection)
+	c.AddFunc("* * * * *", systemHandler.ShutDown)
 	return c
 }
 
