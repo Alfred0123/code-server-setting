@@ -29,3 +29,10 @@ EOF'
 sudo systemctl daemon-reload
 sudo systemctl enable system-api
 sudo systemctl start system-api
+
+# 참고
+# 종료 시킬때
+# sudo systemctl stop  system-api
+# sudo systemctl disable  system-api
+# 로그 확인
+# journalctl -f -t system-api
