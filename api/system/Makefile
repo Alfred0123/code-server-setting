@@ -2,14 +2,15 @@ BINARY_NAME=system-api
 
 air_build: air_clean
 air_build:
-	GOARCH=amd64 GOOS=darwin go build -tags=nomsgpack -o ./tmp/main ./cmd/main.go
+	go build -tags=nomsgpack -o ./tmp/main ./cmd/main.go
+# GOARCH=amd64 GOOS=darwin go build -tags=nomsgpack -o ./tmp/main ./cmd/main.go
 air_clean:
 	go clean
 	-rm -r ./tmp
 
 build: clean
 build:
-	GOARCH=amd64 GOOS=linux go build -tags=nomsgpack -o ./build/${BINARY_NAME}-linux ./main.go
+	GOARCH=amd64 GOOS=linux go build -tags=nomsgpack -o ./build/${BINARY_NAME}-linux ./cmd/main.go
 # zip ./build/function.zip ./build/${BINARY_NAME}-linux
 # GOARCH=amd64 GOOS=darwin go build -o ./build/${BINARY_NAME}-darwin main.go
 # GOARCH=amd64 GOOS=window go build -o ./build/${BINARY_NAME}-windows main.go

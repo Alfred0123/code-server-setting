@@ -16,6 +16,7 @@
   - aws sdk / complete
   - wire-guard / complete
   - github / complete
+  - go / install
   - asdf
   - vscode user setting
   - etcd
