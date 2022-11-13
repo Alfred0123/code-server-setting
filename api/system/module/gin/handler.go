@@ -23,6 +23,7 @@ func setting() *gin.Engine {
 	// 이렇게 테스트 가능 https://code-server.nanafa.net/proxy/8888/sample/error
 	// 이렇게 접근하면 postman 에서 cookie 에서 code-server-sesion 을 꼭 붙여넣어줘야 된다.
 	sample.GET("/error", sampleHandler.Status)
+	sample.GET("/shutdown", sampleHandler.ShutDown)
 	return r
 }
 
