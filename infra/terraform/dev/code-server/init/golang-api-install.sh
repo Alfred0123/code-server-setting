@@ -4,9 +4,10 @@ mkdir -p /home/ubuntu/init/system
 mkdir -p /home/ubuntu/init/system/env
 
 # binary file 복사
-# sudo cp ./env/local.yaml /home/ubuntu/init/
+# mkdir -p /home/ubuntu/init/system/env
+# sudo cp ./tmp/main /home/ubuntu/init/system/main
 # env file 복사
-# sudo cp ./env/local.yaml /home/ubuntu/init/system/env/local.yaml
+# sudo cp ./env/production.yaml /home/ubuntu/init/system/env/production.yaml
 
 sudo bash -c 'cat << EOF > /usr/lib/systemd/system/system-api.service
 [Unit]
