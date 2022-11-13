@@ -7,12 +7,14 @@ import (
 
 	config "code-server/configs"
 	cron "code-server/module/cron"
+	etcd "code-server/module/etcd"
 	gin "code-server/module/gin"
 )
 
 func init() {
 	config.SetEnv()
 	log.Printf("ENV: %s", config.RuntimeConf.ENV)
+	etcd.Run()
 }
 
 func main() {	

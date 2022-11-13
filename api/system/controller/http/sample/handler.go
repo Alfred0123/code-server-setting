@@ -2,8 +2,13 @@ package sample
 
 import (
 	"code-server/domain/errors"
+	"context"
+	"log"
+	"time"
 
 	"github.com/gin-gonic/gin"
+
+	etcd "code-server/module/etcd"
 )
 
 type TestEndpintQuery struct {
@@ -19,6 +24,17 @@ func Status (c *gin.Context) {
 		c.Error(e)
 		return
 	}
+
+	connection := etcd.Connection()
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second * 1)
+	// resp, err := connection.Put(ctx, "foo", "test123") 
+	resp, err := connection.Get(ctx, "foo") 
+	cancel()
+	if err != nil {
+		panic("put error")
+	}
+	log.Println(resp)
+	// connection.Close()
 
 	c.JSON(200, gin.H{
 		"message": "success",
