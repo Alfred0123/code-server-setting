@@ -7,6 +7,6 @@
 
 # init
 
-- go mod initair
+- go mod init <service-name>
 - go mod tidy
   - 현재 Module 의존성 기록
