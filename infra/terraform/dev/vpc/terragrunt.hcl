@@ -7,6 +7,7 @@ terraform {
   source = "../../modules/vpc"
 }
 
+#! arguments
 inputs = {
   name = "code-server"
 }

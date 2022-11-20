@@ -11,10 +11,11 @@ dependency "vpc" {
   config_path = "../vpc"
 }
 
+#! arguments
 dependency "code_server" {
   config_path = "../code-server"
 }
-
+#! arguments
 inputs = {
   name = "code-server-admin"
   subnet_id = dependency.vpc.outputs.subnet_id
